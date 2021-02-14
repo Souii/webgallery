@@ -56,32 +56,29 @@
                   <div id="caption"></div>
                 </div>
 
-                <template x-for="image in images" :key="image.id">
-                    <div class="col-2 float">
-                        <div class="card mb-3" style="font-size:14px;">
-                          <img x-bind:src="getPath(image.thumbnail)" class="card-img-top thumbnail" @click="show(image)" alt="">
-                          <span x-on:click="deleteImage(image)" class="closebtn">&times;</span>
-                          <div class="card-body text-center">
-                            <p class="card-title" x-text="image.title" style="font-weight: bold"></p>
-                            <p class="card-text" x-text="image.description"></p>
-                            <p class="card-text">
+                <div class="masonry">
+                    <template x-for="image in images" :key="image.id">
+                        <div class="item text-center" style="font-size:15px;">
+                            <p style="position: relative">
+                                <img x-bind:src="getPath(image.thumbnail)" @click="show(image)">
+                                <span x-on:click="deleteImage(image)" class="closebtn">&times;</span>
+                            </p>
+                            <p class="mt-2 mb-0" x-text="image.title" style="font-weight: bold"></p>
+                            <p class="" x-text="image.description"></p>
+                            <p class="my-0">
                                 <template x-for="tag in image.tags" >
                                     <small class="text-muted">
                                         <span class="badge bg-primary" x-text="tag.name"></span>
                                     </small>
                                 </template>
                             </p>
+                            <p class="text-right my-0">
+                                <a x-bind:href="`/admin/image/${image.id}/edit`" class="btn">Edit</a>
+                            </p>
 
-                            <div class="row">
-                                <div class="offset-8 col-4">
-                                    <a x-bind:href="`/admin/image/${image.id}/edit`" class="btn">Edit</a>
-                                </div>
-                            </div>
-
-                          </div>
                         </div>
-                    </div>
-                </template>
+                    </template>
+                </div>
             </div>
         </div>
 

@@ -33,38 +33,31 @@
         <div class="col-12">
             <div class="row">
 
-                <div id="myModal" class="modal">
-                  <span class="close" @click="close()">&times;</span>
-                  <img class="modal-content" id="img01">
-                  <div id="caption"></div>
-                </div>
+                <div class="masonry">
+                    <template x-for="image in images" :key="image.id">
+                        <div class="item text-center" style="font-size:15px;">
+                            <img x-bind:src="getPath(image.thumbnail)" @click="show(image)">
 
-                <template x-for="image in images" :key="image.id">
-                    <div class="col-2 float">
-                        <div class="card mb-3">
-                          <img x-bind:src="getPath(image.thumbnail)" @click="show(image)" class="card-img-top thumbnail" alt="">
-
-                          <div class="card-body text-center" style="font-size:14px;">
-                            <p class="card-title my-0" x-text="image.title" style="font-weight: bold"></p>
-                            <p class="card-text" x-text="image.description"></p>
-                            <p class="card-text py-0">
+                            <p class="mt-2 mb-0" x-text="image.title" style="font-weight: bold"></p>
+                            <p class="" x-text="image.description"></p>
+                            <p class="my-0">
                                 <template x-for="tag in image.tags" >
                                     <small class="text-muted">
                                         <span class="badge bg-primary" x-text="tag.name"></span>
                                     </small>
                                 </template>
                             </p>
+                            <p class="text-right my-0"><a href="#" class="btn">Share</a></p>
 
-                            <div class="row">
-                                <div class="col-4 offset-8">
-                                    <a x-bind:href="`/image/${image.id}/edit`" class="btn">Share</a>
-                                </div>
-                            </div>
-
-                          </div>
                         </div>
-                    </div>
-                </template>
+                    </template>
+                </div>
+
+                <div id="myModal" class="modal">
+                  <span class="close" @click="close()">&times;</span>
+                  <img class="modal-content" id="img01">
+                  <div id="caption"></div>
+                </div>
             </div>
         </div>
 

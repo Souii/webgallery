@@ -34,8 +34,14 @@ class ImageController extends Controller
     public function create()
     {
         $categories = $this->categoryRepository->getAll();
+        $data = [
+            'title' => old('title'),
+            'description' => old('description'),
+            'category' => old('category'),
+            'tags' => old('tags')
+        ];
 
-        return view('admin.images.create', compact('categories'));
+        return view('admin.images.create', compact('categories', 'data'));
     }
 
     /**
@@ -73,11 +79,17 @@ class ImageController extends Controller
         $categories = $this->categoryRepository->getAll();
         $image = $this->imageRepository->find($image);
 
-        $tags = $image->tags->implode('name', ', ');
+        $data = [
+            'id' => $image->id,
+            'title' => $image->title,
+            'description' => $image->description,
+            'category' => $image->category->id,
+            'tags' => $image->tags->implode('name', ', ')
+        ];
 
         return view(
             'admin.images.edit',
-            compact('categories', 'image', 'tags')
+            compact('categories', 'data')
         );
     }
 

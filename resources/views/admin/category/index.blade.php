@@ -1,8 +1,4 @@
-@extends('layout.app')
-
-@section('title', 'New Category')
-
-@section('content')
+<x-app-layout title="Categories">
     <div class="row justify-content-center mt-5">
 
         <div class="col-3">
@@ -54,4 +50,4 @@
 
         </div>
     </div>
-@endsection
+</x-app-layout>

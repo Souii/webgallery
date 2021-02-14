@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AddImageRequest;
 use App\Http\Requests\UpdateImageRequest;
 use App\Services\GalleryService;
 use App\Repositories\CategoryRepository;
-use App\Repositories\imageRepository;
+use App\Repositories\ImageRepository;
 
 class ImageController extends Controller
 {

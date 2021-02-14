@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Image;
 use App\Repositories\ImageRepository;
 
 class ImageController extends Controller

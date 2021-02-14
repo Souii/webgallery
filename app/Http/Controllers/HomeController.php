@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Image;
-use Illuminate\Database\Eloquent\Builder;
+use App\Repositories\CategoryRepository;
+
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(CategoryRepository $categoryRepository)
     {
-        $categories = Category::all();
+        $categories = $categoryRepository->getAll();
 
-        $images = (Image::with('tags')->get());
-
-        return view('index', compact('categories', 'images'));
+        return view('index', compact('categories'));
     }
 }

@@ -125,6 +125,6 @@ class ImageController extends Controller
      */
      public function destroy($image)
      {
-         $this->gallery->removeImage($image);
+         $this->gallery->deleteImage($image);
      }
 }

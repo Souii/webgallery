@@ -3,27 +3,32 @@
 namespace App\Services;
 
 use App\Repositories\ImageRepository;
+use App\Services\ImageStorage\ImageStorage;
 
 class GalleryService
 {
     private $images;
-    private $fileService;
+    private $storage;
+    private $thumnail;
     private $tagService;
 
     public function __construct(
         ImageRepository $images,
-        ImageFileService $fileService,
+        ImageStorage $storage,
+        ThumbnailService $thumnail,
         TagService $tagService
     ) {
         $this->images = $images;
-        $this->fileService = $fileService;
+        $this->storage = $storage;
+        $this->thumnail = $thumnail;
         $this->tagService = $tagService;
     }
 
     public function addImage(array $data)
     {
-        $data['original'] = $this->fileService->storeOriginal($data['file']);
-        $data['thumbnail'] = $this->fileService->createThumbnail($data['file']);
+        $data['original'] = $this->storage->storeOriginal($data['file']);
+        $this->thumnail->create(($data['file'])->path());
+        $data['thumbnail'] = $this->storage->storeThumbnail($data['file']);
 
         $image = $this->images->save($data);
         $tags = $this->tagService->defineTags($data['tags']);
@@ -39,12 +44,12 @@ class GalleryService
         $image->tags()->sync($tags);
     }
 
-    public function removeImage($id)
+    public function deleteImage($id)
     {
         $image = $this->images->find($id);
 
-        $this->fileService->remove($image->original);
-        $this->fileService->remove($image->thumbnail);
+        $this->storage->delete($image->original);
+        $this->storage->delete($image->thumbnail);
 
         $image->tags()->detach();
         $this->images->remove($id);

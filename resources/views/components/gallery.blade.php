@@ -132,7 +132,7 @@
                 modal.style.display = "none";
             },
             getPath: function(path) {
-                return "/storage/" + path;
+                return "/" + path;
             },
             loadMore: function() {
                 this.number += 1;
